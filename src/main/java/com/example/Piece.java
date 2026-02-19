@@ -60,7 +60,15 @@ public class Piece {
     //returns an arraylist of squares which are legal to move to
     //please note that your piece must have some sort of logic. Just being able to move to every square on the board is not
     //going to score any points.
+
+    // Piece rules: It has same moveset as regular knight.
     public ArrayList<Square> getLegalMoves(Board b, Square start){
-    	return null;
+        ArrayList<Square> moves = new ArrayList<Square>();
+        if ((start.getCol() - 2 > 0 && start.getRow() - 2 < 0)) {
+            moves.add(b.getSquareArray()[start.getRow() - 1][start.getCol() - 2]);
+            moves.add(b.getSquareArray()[start.getRow() + 1][start.getCol() - 2]);
+            moves.add(b.getSquareArray()[start.getRow() + 2][start.getCol() - 1]);
+        }
+    	return moves;
     }
 }
