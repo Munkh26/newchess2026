@@ -64,11 +64,15 @@ public class Piece {
     // Piece rules: It has same moveset as regular knight.
     public ArrayList<Square> getLegalMoves(Board b, Square start){
         ArrayList<Square> moves = new ArrayList<Square>();
-        if ((start.getCol() - 2 > 0 && start.getRow() - 2 < 0)) {
-            moves.add(b.getSquareArray()[start.getRow() - 1][start.getCol() - 2]);
-            moves.add(b.getSquareArray()[start.getRow() + 1][start.getCol() - 2]);
-            moves.add(b.getSquareArray()[start.getRow() + 2][start.getCol() - 1]);
+        if ((start.getRow() - 2 > 0) && start.getCol() - 2 < 0) {
+            moves.add(b.getSquareArray()[start.getRow() - 2][start.getCol() - 1]);
+            moves.add(b.getSquareArray()[start.getRow() - 2][start.getCol() + 1]);
+            moves.add(b.getSquareArray()[start.getRow() - 1][start.getCol() + 2]);
         }
+        if ((start.getRow() + 2 > 0) && start.getCol() - 2 < 0) {
+            moves.add(b.getSquareArray()[start.getRow() + 2][start.getCol() + 1]);
+        }
+        System.out.println(moves);
     	return moves;
     }
 }
