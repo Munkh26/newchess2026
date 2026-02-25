@@ -165,6 +165,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         // using currPiece
         if(fromMoveSquare!= null){
             fromMoveSquare.setDisplay(true);
+            currPiece.getLegalMoves(this, fromMoveSquare);
         }
         currPiece = null;
         repaint();
