@@ -1,5 +1,6 @@
 package com.example;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -9,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 //You will be implmenting a part of a function and a whole function in this document. Please follow the directions for the 
@@ -152,6 +154,9 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         if (sq.isOccupied() && sq.getOccupyingPiece().getColor() == whiteTurn) {
             currPiece = sq.getOccupyingPiece();
             fromMoveSquare = sq;
+            for(Square s: currPiece.getLegalMoves(this, sq)) {
+                s.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
             sq.setDisplay(false);
         }
         repaint();
@@ -164,6 +169,11 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     @Override
     public void mouseReleased(MouseEvent e) {
         endSquare = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
+        for (Square[] row: board) {
+            for(Square s: row) {
+                s.setBorder(null);
+            }
+        }
 
         // using currPiece
         if(fromMoveSquare!= null){

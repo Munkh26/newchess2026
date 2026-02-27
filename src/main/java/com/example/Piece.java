@@ -135,6 +135,16 @@ public class Piece {
             }
         }
 
+        if ((start.getRow() + 1 < 8) && (start.getCol() - 2 >= 0)) {
+            Square leftDown = b.getSquareArray()[start.getRow() + 1][start.getCol() - 2];
+            if (leftDown.isOccupied() == false) {
+                moves.add(leftDown);
+            }
+            else if (leftDown.getOccupyingPiece().getColor() != color) {
+                moves.add(leftDown);
+            }
+        }
+
     	return moves;
     }
 }
