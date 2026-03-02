@@ -101,14 +101,14 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     // number of pieces on either side.
     // it's up to you how you wish to arrange your pieces.
     void initializePieces() {
-        board[7][0].put(new Piece(true, RESOURCES_WROOK_PNG));
-        board[7][1].put(new Piece(true, RESOURCES_WKNIGHT_PNG));
-        board[7][5].put(new Piece(true, RESOURCES_WKNIGHT_PNG));
-        board[7][4].put(new Piece(true, RESOURCES_WKING_PNG));
+        board[0][0].put(new Piece(false, RESOURCES_BROOK_PNG));
         board[0][1].put(new Piece(false, RESOURCES_BKNIGHT_PNG));
-        board[1][4].put(new Piece(false, RESOURCES_BKNIGHT_PNG));
-    
+        board[0][2].put(new Piece(false, RESOURCES_BBISHOP_PNG));
 
+        for (int i = 0; i < 8; i++) {
+            board[6][i].put(new Piece(true, RESOURCES_WPAWN_PNG)); 
+        }
+        board[7][1].put(new Piece(true, RESOURCES_WKNIGHT_PNG));
     }
 
     public Square[][] getSquareArray() {
@@ -145,6 +145,10 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     }
 
     @Override
+
+    // Pre-condition: the user should press on the mouse
+    // Pos-condition: It will pick up the piece and shows the possible moves it could take.
+
     public void mousePressed(MouseEvent e) {
         currX = e.getX();
         currY = e.getY();
@@ -155,7 +159,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             currPiece = sq.getOccupyingPiece();
             fromMoveSquare = sq;
             for(Square s: currPiece.getLegalMoves(this, sq)) {
-                s.setBorder(BorderFactory.createLineBorder(Color.RED));
+                s.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.RED));
             }
             sq.setDisplay(false);
         }
@@ -166,6 +170,9 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     // should move the piece to the desired location only if this is a legal move.
     // use the pieces "legal move" function to determine if this move is legal, then
     // complete it by moving the new piece to it's new board location.
+
+    // Pre-condition: Release the mouse after pressing it
+    // Pos-condition: It will put the piece down at your selected location if it is legal. If it is not legal it will put the piece back to its original position.
     @Override
     public void mouseReleased(MouseEvent e) {
         endSquare = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));

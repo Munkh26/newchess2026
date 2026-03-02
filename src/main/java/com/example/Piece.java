@@ -49,8 +49,74 @@ public class Piece {
     // TO BE IMPLEMENTED!
     //return a list of every square that is "controlled" by this piece. A square is controlled
     //if the piece capture into it legally.
+
+    // Pre-condition: 
+    // Pos-condition:
+
     public ArrayList<Square> getControlledSquares(Square[][] board, Square start) {
-     return null;
+
+        ArrayList<Square> controlled = new ArrayList<Square>();
+
+        if ((start.getRow() - 2 >= 0) && (start.getCol() + 1 < 8)) {
+            Square upRight = board[start.getRow() - 2][start.getCol() + 1];
+            if (upRight.isOccupied() == false) {
+                controlled.add(upRight);
+            }
+        }
+
+        if ((start.getRow() - 2 >= 0) && (start.getCol() - 1 >= 0)) {
+            Square upLeft = board[start.getRow() - 2][start.getCol() - 1];
+            if (upLeft.isOccupied() == false) {
+                controlled.add(upLeft);
+            }
+        }
+
+        if ((start.getRow() + 2 < 8) && (start.getCol() + 1 < 8)) {
+            Square downRight = board[start.getRow() + 2][start.getCol() + 1];
+            if (downRight.isOccupied() == false) {
+                controlled.add(downRight);
+            }
+        }
+
+        if ((start.getRow() + 2 < 8) && (start.getCol() - 1 >= 0)) {
+            Square downLeft = board[start.getRow() + 2][start.getCol() - 1];
+            if (downLeft.isOccupied() == false) {
+                controlled.add(downLeft);
+            }
+        }
+
+
+        if ((start.getRow() - 1 >= 0) && (start.getCol() + 2 < 8)) {
+            Square rightUp = board[start.getRow() - 1][start.getCol() + 2];
+            if (rightUp.isOccupied() == false) {
+                controlled.add(rightUp);
+            }
+        }
+
+
+        if ((start.getRow() - 1 >= 0) && (start.getCol() - 2 >= 0)) {
+            Square leftUp = board[start.getRow() - 1][start.getCol() - 2];
+            if (leftUp.isOccupied() == false) {
+                controlled.add(leftUp);
+            }
+        }
+
+        
+        if ((start.getRow() + 1 < 8) && (start.getCol() + 2 < 8)) {
+            Square rightDown = board[start.getRow() + 1][start.getCol() + 2];
+            if (rightDown.isOccupied() == false) {
+                controlled.add(rightDown);
+            }
+        }
+
+        if ((start.getRow() + 1 < 8) && (start.getCol() - 2 >= 0)) {
+            Square leftDown = board[start.getRow() + 1][start.getCol() - 2];
+            if (leftDown.isOccupied() == false) {
+                controlled.add(leftDown);
+            }
+        }
+
+        return controlled;
     }
     
 
@@ -61,7 +127,10 @@ public class Piece {
     //please note that your piece must have some sort of logic. Just being able to move to every square on the board is not
     //going to score any points.
 
-    // Piece rules: It has same moveset as regular knight.
+    // Piece rules: It has same moveset as regular knight: (2 up, 1 right), (1 up, 2 right), (2 up, 1 left) (1 up, 2 left), (2 down, 1 right), (1 down, 2 right), (2 down, 1 left) and (1 down, 2 left).
+    // Pre-condition: Call the getLegalMoves method in the Board.java file.
+    // Pos-condition: It returns all the possible legal moves this piece could make.
+
     public ArrayList<Square> getLegalMoves(Board b, Square start){
         ArrayList<Square> moves = new ArrayList<Square>();
         if ((start.getRow() - 2 >= 0) && (start.getCol() + 1 < 8)) {
