@@ -104,11 +104,26 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         board[0][0].put(new Piece(false, RESOURCES_BROOK_PNG));
         board[0][1].put(new Piece(false, RESOURCES_BKNIGHT_PNG));
         board[0][2].put(new Piece(false, RESOURCES_BBISHOP_PNG));
-
+        board[0][3].put(new Piece(false, RESOURCES_BQUEEN_PNG));
+        board[0][4].put(new Piece(false, RESOURCES_BKING_PNG));
+        board[0][5].put(new Piece(false, RESOURCES_BBISHOP_PNG));
+        board[0][6].put(new Piece(false, RESOURCES_BKNIGHT_PNG));
+        board[0][7].put(new Piece(false, RESOURCES_BROOK_PNG));
+        for (int i = 0; i < 8; i++) {
+            board[1][i].put(new Piece(false, RESOURCES_BPAWN_PNG));
+        }
+        
+        board[7][0].put(new Piece(true, RESOURCES_WROOK_PNG));
+        board[7][1].put(new Piece(true, RESOURCES_WKNIGHT_PNG));
+        board[7][2].put(new Piece(true, RESOURCES_WBISHOP_PNG));
+        board[7][3].put(new Piece(true, RESOURCES_WQUEEN_PNG));
+        board[7][4].put(new Piece(true, RESOURCES_WKING_PNG));
+        board[7][5].put(new Piece(true, RESOURCES_WBISHOP_PNG));
+        board[7][6].put(new Piece(true, RESOURCES_WKNIGHT_PNG));
+        board[7][7].put(new Piece(true, RESOURCES_WROOK_PNG));
         for (int i = 0; i < 8; i++) {
             board[6][i].put(new Piece(true, RESOURCES_WPAWN_PNG)); 
         }
-        board[7][1].put(new Piece(true, RESOURCES_WKNIGHT_PNG));
     }
 
     public Square[][] getSquareArray() {
@@ -146,8 +161,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
     @Override
 
-    // Pre-condition: the user should press on the mouse
-    // Pos-condition: It will pick up the piece and shows the possible moves it could take.
+    // Pre-condition: The mouse must be pressed on a board square containing a piece belonging to the player whose turn it is.
+    // Pos-condition: The selected piece is stored in currPiece, the origin square is stored in fromMoveSquare, and all legal destination squares are highlighted.
 
     public void mousePressed(MouseEvent e) {
         currX = e.getX();
@@ -171,8 +186,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     // use the pieces "legal move" function to determine if this move is legal, then
     // complete it by moving the new piece to it's new board location.
 
-    // Pre-condition: Release the mouse after pressing it
-    // Pos-condition: It will put the piece down at your selected location if it is legal. If it is not legal it will put the piece back to its original position.
+    // Pre-condition: The mouse must be released after a piece has been selected.
+    // Pos-condition: If the release location is a legal move destination, the piece is moved there. Otherwise, the piece is returned to its original square. All highlighting borders are cleared.
     @Override
     public void mouseReleased(MouseEvent e) {
         endSquare = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));

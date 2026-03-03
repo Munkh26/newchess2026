@@ -50,8 +50,8 @@ public class Piece {
     //return a list of every square that is "controlled" by this piece. A square is controlled
     //if the piece capture into it legally.
 
-    // Pre-condition: 
-    // Pos-condition:
+    // Pre-condition: board must not be null, start must be a valid square on board, board is a valid 8x8 array
+    // Pos-condition: Returns all squares reachable by knight movement pattern regardless of occupancy.
 
     public ArrayList<Square> getControlledSquares(Square[][] board, Square start) {
 
@@ -59,62 +59,44 @@ public class Piece {
 
         if ((start.getRow() - 2 >= 0) && (start.getCol() + 1 < 8)) {
             Square upRight = board[start.getRow() - 2][start.getCol() + 1];
-            if (upRight.isOccupied() == false) {
-                controlled.add(upRight);
-            }
+            controlled.add(upRight);
         }
-
+        
         if ((start.getRow() - 2 >= 0) && (start.getCol() - 1 >= 0)) {
             Square upLeft = board[start.getRow() - 2][start.getCol() - 1];
-            if (upLeft.isOccupied() == false) {
-                controlled.add(upLeft);
-            }
+            controlled.add(upLeft);
         }
 
         if ((start.getRow() + 2 < 8) && (start.getCol() + 1 < 8)) {
             Square downRight = board[start.getRow() + 2][start.getCol() + 1];
-            if (downRight.isOccupied() == false) {
-                controlled.add(downRight);
-            }
+            controlled.add(downRight);
         }
 
         if ((start.getRow() + 2 < 8) && (start.getCol() - 1 >= 0)) {
             Square downLeft = board[start.getRow() + 2][start.getCol() - 1];
-            if (downLeft.isOccupied() == false) {
-                controlled.add(downLeft);
-            }
+            controlled.add(downLeft);
         }
-
 
         if ((start.getRow() - 1 >= 0) && (start.getCol() + 2 < 8)) {
             Square rightUp = board[start.getRow() - 1][start.getCol() + 2];
-            if (rightUp.isOccupied() == false) {
-                controlled.add(rightUp);
-            }
+            controlled.add(rightUp);
         }
-
 
         if ((start.getRow() - 1 >= 0) && (start.getCol() - 2 >= 0)) {
             Square leftUp = board[start.getRow() - 1][start.getCol() - 2];
-            if (leftUp.isOccupied() == false) {
-                controlled.add(leftUp);
-            }
+            controlled.add(leftUp);
         }
 
         
         if ((start.getRow() + 1 < 8) && (start.getCol() + 2 < 8)) {
             Square rightDown = board[start.getRow() + 1][start.getCol() + 2];
-            if (rightDown.isOccupied() == false) {
-                controlled.add(rightDown);
-            }
+            controlled.add(rightDown);
         }
 
         if ((start.getRow() + 1 < 8) && (start.getCol() - 2 >= 0)) {
             Square leftDown = board[start.getRow() + 1][start.getCol() - 2];
-            if (leftDown.isOccupied() == false) {
-                controlled.add(leftDown);
-            }
-        }
+            controlled.add(leftDown);
+        }    
 
         return controlled;
     }
@@ -128,8 +110,8 @@ public class Piece {
     //going to score any points.
 
     // Piece rules: It has same moveset as regular knight: (2 up, 1 right), (1 up, 2 right), (2 up, 1 left) (1 up, 2 left), (2 down, 1 right), (1 down, 2 right), (2 down, 1 left) and (1 down, 2 left).
-    // Pre-condition: Call the getLegalMoves method in the Board.java file.
-    // Pos-condition: It returns all the possible legal moves this piece could make.
+    // Pre-condition: board must not be null, start must be a valid square on board, board is a valid 8x8 array
+    // Pos-condition: Returns all knight-movement squares that are within board boundaries and are either empty or occupied by an opponent’s piece.
 
     public ArrayList<Square> getLegalMoves(Board b, Square start){
         ArrayList<Square> moves = new ArrayList<Square>();
@@ -138,7 +120,7 @@ public class Piece {
             if (upRight.isOccupied() == false) {
                 moves.add(upRight);
             }
-            else if (upRight.getOccupyingPiece().getColor() != color) {
+            else if (upRight.getOccupyingPiece() != null && upRight.getOccupyingPiece().getColor() != color) {
                 moves.add(upRight);
             }
         }
@@ -148,7 +130,7 @@ public class Piece {
             if (upLeft.isOccupied() == false) {
                 moves.add(upLeft);
             }
-            else if (upLeft.getOccupyingPiece().getColor() != color) {
+            else if (upLeft.getOccupyingPiece() != null && upLeft.getOccupyingPiece().getColor() != color) {
                 moves.add(upLeft);
             }
         }
@@ -158,7 +140,7 @@ public class Piece {
             if (downRight.isOccupied() == false) {
                 moves.add(downRight);
             }
-            else if (downRight.getOccupyingPiece().getColor() != color) {
+            else if (downRight.getOccupyingPiece() != null && downRight.getOccupyingPiece().getColor() != color) {
                 moves.add(downRight);
             }
         }
@@ -168,7 +150,7 @@ public class Piece {
             if (downLeft.isOccupied() == false) {
                 moves.add(downLeft);
             }
-            else if (downLeft.getOccupyingPiece().getColor() != color) {
+            else if (downLeft.getOccupyingPiece() != null && downLeft.getOccupyingPiece().getColor() != color) {
                 moves.add(downLeft);
             }
         }
@@ -178,7 +160,7 @@ public class Piece {
             if (rightUp.isOccupied() == false) {
                 moves.add(rightUp);
             }
-            else if (rightUp.getOccupyingPiece().getColor() != color) {
+            else if (rightUp.getOccupyingPiece() != null && rightUp.getOccupyingPiece().getColor() != color) {
                 moves.add(rightUp);
             }
         }
@@ -188,7 +170,7 @@ public class Piece {
             if (leftUp.isOccupied() == false) {
                 moves.add(leftUp);
             }
-            else if (leftUp.getOccupyingPiece().getColor() != color) {
+            else if (leftUp.getOccupyingPiece() != null && leftUp.getOccupyingPiece().getColor() != color) {
                 moves.add(leftUp);
             }
         }
@@ -199,7 +181,7 @@ public class Piece {
             if (rightDown.isOccupied() == false) {
                 moves.add(rightDown);
             }
-            else if (rightDown.getOccupyingPiece().getColor() != color) {
+            else if (rightDown.getOccupyingPiece() != null && rightDown.getOccupyingPiece().getColor() != color) {
                 moves.add(rightDown);
             }
         }
@@ -209,7 +191,7 @@ public class Piece {
             if (leftDown.isOccupied() == false) {
                 moves.add(leftDown);
             }
-            else if (leftDown.getOccupyingPiece().getColor() != color) {
+            else if (leftDown.getOccupyingPiece() != null && leftDown.getOccupyingPiece().getColor() != color) {
                 moves.add(leftDown);
             }
         }
