@@ -1,50 +1,16 @@
-package com.example;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+// Munkhsoyombo Munkhbat
+// Knight
+// It does the same movements like the real knight piece in chess.
 
-import javax.imageio.ImageIO;
+package com.example;
+import java.util.ArrayList;
 
 //you will need to implement two functions in this file.
 public class Knight extends Piece {
-    private final boolean color; // remove this
-    private BufferedImage img; // remove this
-    
-    public Knight(boolean isWhite, String img_file) {
-        this.color = isWhite;
-         
-        try {
-            if (this.img == null) {
-                this.img = ImageIO.read(new File(System.getProperty("user.dir")+img_file));
-            }
-          } catch (IOException e) {
-            System.out.println("File not found: " + e.getMessage());
-          }
-    }
-    
-    
 
-    
-    public boolean getColor() {
-        return color;
+    public Knight(boolean isWhite, String img_file) {
+        super(isWhite, img_file);
     }
-    
-    public Image getImage() {
-        return img;
-    }
-    
-    //precondition: g and currentSquare must be on-null valid objects.
-    //postcondition: the image stored in the img property of this object is drawn to the screen.
-    public void draw(Graphics g, Square currentSquare) {
-        int x = currentSquare.getX();
-        int y = currentSquare.getY();
-        
-        g.drawImage(this.img, x, y, null);
-    }
-    
     
     // TO BE IMPLEMENTED!
     //return a list of every square that is "controlled" by this piece. A square is controlled
@@ -120,7 +86,7 @@ public class Knight extends Piece {
             if (upRight.isOccupied() == false) {
                 moves.add(upRight);
             }
-            else if (upRight.getOccupyingPiece() != null && upRight.getOccupyingPiece().getColor() != color) {
+            else if (upRight.getOccupyingPiece() != null && upRight.getOccupyingPiece().getColor() != super.getColor()) {
                 moves.add(upRight);
             }
         }
@@ -130,7 +96,7 @@ public class Knight extends Piece {
             if (upLeft.isOccupied() == false) {
                 moves.add(upLeft);
             }
-            else if (upLeft.getOccupyingPiece() != null && upLeft.getOccupyingPiece().getColor() != color) {
+            else if (upLeft.getOccupyingPiece() != null && upLeft.getOccupyingPiece().getColor() != super.getColor()) {
                 moves.add(upLeft);
             }
         }
@@ -140,7 +106,7 @@ public class Knight extends Piece {
             if (downRight.isOccupied() == false) {
                 moves.add(downRight);
             }
-            else if (downRight.getOccupyingPiece() != null && downRight.getOccupyingPiece().getColor() != color) {
+            else if (downRight.getOccupyingPiece() != null && downRight.getOccupyingPiece().getColor() != super.getColor()) {
                 moves.add(downRight);
             }
         }
@@ -150,7 +116,7 @@ public class Knight extends Piece {
             if (downLeft.isOccupied() == false) {
                 moves.add(downLeft);
             }
-            else if (downLeft.getOccupyingPiece() != null && downLeft.getOccupyingPiece().getColor() != color) {
+            else if (downLeft.getOccupyingPiece() != null && downLeft.getOccupyingPiece().getColor() != super.getColor()) {
                 moves.add(downLeft);
             }
         }
@@ -160,7 +126,7 @@ public class Knight extends Piece {
             if (rightUp.isOccupied() == false) {
                 moves.add(rightUp);
             }
-            else if (rightUp.getOccupyingPiece() != null && rightUp.getOccupyingPiece().getColor() != color) {
+            else if (rightUp.getOccupyingPiece() != null && rightUp.getOccupyingPiece().getColor() != super.getColor()) {
                 moves.add(rightUp);
             }
         }
@@ -170,7 +136,7 @@ public class Knight extends Piece {
             if (leftUp.isOccupied() == false) {
                 moves.add(leftUp);
             }
-            else if (leftUp.getOccupyingPiece() != null && leftUp.getOccupyingPiece().getColor() != color) {
+            else if (leftUp.getOccupyingPiece() != null && leftUp.getOccupyingPiece().getColor() != super.getColor()) {
                 moves.add(leftUp);
             }
         }
@@ -181,7 +147,7 @@ public class Knight extends Piece {
             if (rightDown.isOccupied() == false) {
                 moves.add(rightDown);
             }
-            else if (rightDown.getOccupyingPiece() != null && rightDown.getOccupyingPiece().getColor() != color) {
+            else if (rightDown.getOccupyingPiece() != null && rightDown.getOccupyingPiece().getColor() != super.getColor()) {
                 moves.add(rightDown);
             }
         }
@@ -191,11 +157,20 @@ public class Knight extends Piece {
             if (leftDown.isOccupied() == false) {
                 moves.add(leftDown);
             }
-            else if (leftDown.getOccupyingPiece() != null && leftDown.getOccupyingPiece().getColor() != color) {
+            else if (leftDown.getOccupyingPiece() != null && leftDown.getOccupyingPiece().getColor() != super.getColor()) {
                 moves.add(leftDown);
             }
         }
 
     	return moves;
+    }
+
+    public String toString() { 
+        if (super.getColor()) {
+            return "Knight, " + "white";
+        }
+        else {
+            return "Knight, " + "black";
+        }
     }
 }

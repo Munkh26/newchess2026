@@ -1,17 +1,14 @@
-// Munkhsoyombo Munkhbat
-// Knight
-// It does the same movements like the real knight piece in chess
-
 package com.example;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.List;
 import javax.imageio.ImageIO;
 
 public class Piece {
+
     private boolean color;
     private BufferedImage img;
 
@@ -19,7 +16,8 @@ public class Piece {
         this.color = color;
         try {
             if (this.img == null) {
-                this.img = ImageIO.read(getClass().getResource(img_file));
+                this.img = ImageIO.read(new File(System.getProperty("user.dir")
+                        + img_file));
             }
         } catch (IOException e) {
             System.out.println("File not found: " + e.getMessage());
@@ -39,23 +37,23 @@ public class Piece {
         int y = currentSquare.getY();
         g.drawImage(this.img, x, y, null);
     }
+// to be overriden in each subclass
 
-    // to be overriden in each subclass
     public ArrayList<Square> getLegalMoves(Board b, Square currentSquare) {
         return null;
     }
+//make sure to override this!
 
-    // make sure to override this!
     public String toString() {
-        if (color)
+        if (color) {
             return "white";
-        else
+        } else {
             return "black";
+        }
     }
+// to be implemented by each subclass
 
-    // to be implemented by each subclass
     public ArrayList<Square> getControlledSquares(Square[][] board, Square currentSquare) {
         return null;
     }
 }
-
