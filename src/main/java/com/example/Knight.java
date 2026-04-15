@@ -8,10 +8,11 @@ import java.util.ArrayList;
 //you will need to implement two functions in this file.
 public class Knight extends Piece {
 
+    // Constructor
     public Knight(boolean isWhite, String img_file) {
         super(isWhite, img_file);
     }
-    
+
     // TO BE IMPLEMENTED!
     //return a list of every square that is "controlled" by this piece. A square is controlled
     //if the piece capture into it legally.
@@ -86,7 +87,7 @@ public class Knight extends Piece {
             if (upRight.isOccupied() == false) {
                 moves.add(upRight);
             }
-            else if (upRight.getOccupyingPiece() != null && upRight.getOccupyingPiece().getColor() != super.getColor()) {
+            else if (upRight.getOccupyingPiece() != null && upRight.getOccupyingPiece().getColor() != getColor()) {
                 moves.add(upRight);
             }
         }
@@ -96,7 +97,7 @@ public class Knight extends Piece {
             if (upLeft.isOccupied() == false) {
                 moves.add(upLeft);
             }
-            else if (upLeft.getOccupyingPiece() != null && upLeft.getOccupyingPiece().getColor() != super.getColor()) {
+            else if (upLeft.getOccupyingPiece() != null && upLeft.getOccupyingPiece().getColor() != getColor()) {
                 moves.add(upLeft);
             }
         }
@@ -106,7 +107,7 @@ public class Knight extends Piece {
             if (downRight.isOccupied() == false) {
                 moves.add(downRight);
             }
-            else if (downRight.getOccupyingPiece() != null && downRight.getOccupyingPiece().getColor() != super.getColor()) {
+            else if (downRight.getOccupyingPiece() != null && downRight.getOccupyingPiece().getColor() != getColor()) {
                 moves.add(downRight);
             }
         }
@@ -116,7 +117,7 @@ public class Knight extends Piece {
             if (downLeft.isOccupied() == false) {
                 moves.add(downLeft);
             }
-            else if (downLeft.getOccupyingPiece() != null && downLeft.getOccupyingPiece().getColor() != super.getColor()) {
+            else if (downLeft.getOccupyingPiece() != null && downLeft.getOccupyingPiece().getColor() != getColor()) {
                 moves.add(downLeft);
             }
         }
@@ -126,7 +127,7 @@ public class Knight extends Piece {
             if (rightUp.isOccupied() == false) {
                 moves.add(rightUp);
             }
-            else if (rightUp.getOccupyingPiece() != null && rightUp.getOccupyingPiece().getColor() != super.getColor()) {
+            else if (rightUp.getOccupyingPiece() != null && rightUp.getOccupyingPiece().getColor() != getColor()) {
                 moves.add(rightUp);
             }
         }
@@ -136,7 +137,7 @@ public class Knight extends Piece {
             if (leftUp.isOccupied() == false) {
                 moves.add(leftUp);
             }
-            else if (leftUp.getOccupyingPiece() != null && leftUp.getOccupyingPiece().getColor() != super.getColor()) {
+            else if (leftUp.getOccupyingPiece() != null && leftUp.getOccupyingPiece().getColor() != getColor()) {
                 moves.add(leftUp);
             }
         }
@@ -147,7 +148,7 @@ public class Knight extends Piece {
             if (rightDown.isOccupied() == false) {
                 moves.add(rightDown);
             }
-            else if (rightDown.getOccupyingPiece() != null && rightDown.getOccupyingPiece().getColor() != super.getColor()) {
+            else if (rightDown.getOccupyingPiece() != null && rightDown.getOccupyingPiece().getColor() != getColor()) {
                 moves.add(rightDown);
             }
         }
@@ -157,7 +158,7 @@ public class Knight extends Piece {
             if (leftDown.isOccupied() == false) {
                 moves.add(leftDown);
             }
-            else if (leftDown.getOccupyingPiece() != null && leftDown.getOccupyingPiece().getColor() != super.getColor()) {
+            else if (leftDown.getOccupyingPiece() != null && leftDown.getOccupyingPiece().getColor() != getColor()) {
                 moves.add(leftDown);
             }
         }
@@ -165,12 +166,10 @@ public class Knight extends Piece {
     	return moves;
     }
 
+    // Overrides the toString method
+    @Override
     public String toString() { 
-        if (super.getColor()) {
-            return "Knight, " + "white";
-        }
-        else {
-            return "Knight, " + "black";
-        }
+        return "A " + super.toString() + " Knight";
     }
+
 }
