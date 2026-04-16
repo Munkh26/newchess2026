@@ -1,6 +1,6 @@
 // Munkhsoyombo Munkhbat
 // Knight
-// It does the same movements like the real knight piece in chess.
+// It does the same movements like the real knight piece in chess. Knight in chess moves in a L-shape. So the moves are: (2 up, 1 right), (1 up, 2 right), (2 up, 1 left) (1 up, 2 left), (2 down, 1 right), (1 down, 2 right), (2 down, 1 left) and (1 down, 2 left).
 
 package com.example;
 import java.util.ArrayList;
@@ -169,7 +169,6 @@ public class Knight extends Piece {
     // Overrides the toString method
     @Override
     public String toString() { 
-        return "A " + super.toString() + " Knight";
+        return "A " + super.toString() + " knight";
     }
-
 }
