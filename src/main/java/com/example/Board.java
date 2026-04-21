@@ -43,7 +43,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     private boolean whiteTurn;
 
     // if the player is currently dragging a piece this variable contains it.
-    Knight currPiece;
+    Piece currPiece;
     //the square your piece came from when the user tries to move it.
     private Square fromMoveSquare;
     //the square your piece tries to go to when the user tries to move it.
@@ -101,29 +101,14 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     // number of pieces on either side.
     // it's up to you how you wish to arrange your pieces.
     void initializePieces() {
-        board[0][0].put(new Knight(false, RESOURCES_BROOK_PNG));
-        board[0][1].put(new Knight(false, RESOURCES_BKNIGHT_PNG));
-        board[0][2].put(new Knight(false, RESOURCES_BBISHOP_PNG));
-        board[0][3].put(new Knight(false, RESOURCES_BQUEEN_PNG));
-        board[0][4].put(new Knight(false, RESOURCES_BKING_PNG));
-        board[0][5].put(new Knight(false, RESOURCES_BBISHOP_PNG));
+        board[0][0].put(new Rook(false, RESOURCES_BROOK_PNG));
+        board[0][4].put(new King(false, RESOURCES_BKING_PNG));
         board[0][6].put(new Knight(false, RESOURCES_BKNIGHT_PNG));
-        board[0][7].put(new Knight(false, RESOURCES_BROOK_PNG));
-        for (int i = 0; i < 8; i++) {
-            board[1][i].put(new Knight(false, RESOURCES_BPAWN_PNG));
-        }
-        
-        board[7][0].put(new Knight(true, RESOURCES_WROOK_PNG));
-        board[7][1].put(new Knight(true, RESOURCES_WKNIGHT_PNG));
-        board[7][2].put(new Knight(true, RESOURCES_WBISHOP_PNG));
-        board[7][3].put(new Knight(true, RESOURCES_WQUEEN_PNG));
-        board[7][4].put(new Knight(true, RESOURCES_WKING_PNG));
-        board[7][5].put(new Knight(true, RESOURCES_WBISHOP_PNG));
+        board[0][7].put(new Rook(false, RESOURCES_BROOK_PNG));
+        board[7][0].put(new Rook(true, RESOURCES_WROOK_PNG));
+        board[7][4].put(new King(true, RESOURCES_WKING_PNG));
         board[7][6].put(new Knight(true, RESOURCES_WKNIGHT_PNG));
-        board[7][7].put(new Knight(true, RESOURCES_WROOK_PNG));
-        for (int i = 0; i < 8; i++) {
-            board[6][i].put(new Knight(true, RESOURCES_WPAWN_PNG)); 
-        }
+        board[7][7].put(new Rook(true, RESOURCES_WROOK_PNG));
     }
 
     public Square[][] getSquareArray() {
@@ -134,11 +119,11 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         return whiteTurn;
     }
 
-    public void setCurrPiece(Knight p) {
+    public void setCurrPiece(Piece p) {
         this.currPiece = p;
     }
 
-    public Knight getCurrPiece() {
+    public Piece getCurrPiece() {
         return this.currPiece;
     }
 
@@ -181,6 +166,10 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         repaint();
     }
 
+    private boolean isInCheck(Boolean color) {
+        return false;
+    }
+
     // TO BE IMPLEMENTED!
     // should move the piece to the desired location only if this is a legal move.
     // use the pieces "legal move" function to determine if this move is legal, then
@@ -200,8 +189,17 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         // using currPiece
         if(fromMoveSquare!= null){
             if((currPiece != null) && (currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare))) {
+                Piece captured = endSquare.getOccupyingPiece();
                 endSquare.put(currPiece);
                 fromMoveSquare.removePiece();
+                if(isInCheck(whiteTurn)) {
+                    fromMoveSquare.put(currPiece);
+                    endSquare.put(captured);
+                }
+                else {
+                    whiteTurn = !whiteTurn;
+                }
+
             }
             fromMoveSquare.setDisplay(true);
         }

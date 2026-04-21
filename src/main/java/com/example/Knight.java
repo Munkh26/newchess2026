@@ -87,7 +87,7 @@ public class Knight extends Piece {
             if (upRight.isOccupied() == false) {
                 moves.add(upRight);
             }
-            else if (upRight.getOccupyingPiece() != null && upRight.getOccupyingPiece().getColor() != getColor()) {
+            else if (upRight.getOccupyingPiece() != null && upRight.getOccupyingPiece().getColor() != this.getColor()) {
                 moves.add(upRight);
             }
         }
@@ -97,7 +97,7 @@ public class Knight extends Piece {
             if (upLeft.isOccupied() == false) {
                 moves.add(upLeft);
             }
-            else if (upLeft.getOccupyingPiece() != null && upLeft.getOccupyingPiece().getColor() != getColor()) {
+            else if (upLeft.getOccupyingPiece() != null && upLeft.getOccupyingPiece().getColor() != this.getColor()) {
                 moves.add(upLeft);
             }
         }
@@ -107,7 +107,7 @@ public class Knight extends Piece {
             if (downRight.isOccupied() == false) {
                 moves.add(downRight);
             }
-            else if (downRight.getOccupyingPiece() != null && downRight.getOccupyingPiece().getColor() != getColor()) {
+            else if (downRight.getOccupyingPiece() != null && downRight.getOccupyingPiece().getColor() != this.getColor()) {
                 moves.add(downRight);
             }
         }
@@ -117,7 +117,7 @@ public class Knight extends Piece {
             if (downLeft.isOccupied() == false) {
                 moves.add(downLeft);
             }
-            else if (downLeft.getOccupyingPiece() != null && downLeft.getOccupyingPiece().getColor() != getColor()) {
+            else if (downLeft.getOccupyingPiece() != null && downLeft.getOccupyingPiece().getColor() != this.getColor()) {
                 moves.add(downLeft);
             }
         }
@@ -127,7 +127,7 @@ public class Knight extends Piece {
             if (rightUp.isOccupied() == false) {
                 moves.add(rightUp);
             }
-            else if (rightUp.getOccupyingPiece() != null && rightUp.getOccupyingPiece().getColor() != getColor()) {
+            else if (rightUp.getOccupyingPiece() != null && rightUp.getOccupyingPiece().getColor() != this.getColor()) {
                 moves.add(rightUp);
             }
         }
@@ -137,7 +137,7 @@ public class Knight extends Piece {
             if (leftUp.isOccupied() == false) {
                 moves.add(leftUp);
             }
-            else if (leftUp.getOccupyingPiece() != null && leftUp.getOccupyingPiece().getColor() != getColor()) {
+            else if (leftUp.getOccupyingPiece() != null && leftUp.getOccupyingPiece().getColor() != this.getColor()) {
                 moves.add(leftUp);
             }
         }
@@ -148,7 +148,7 @@ public class Knight extends Piece {
             if (rightDown.isOccupied() == false) {
                 moves.add(rightDown);
             }
-            else if (rightDown.getOccupyingPiece() != null && rightDown.getOccupyingPiece().getColor() != getColor()) {
+            else if (rightDown.getOccupyingPiece() != null && rightDown.getOccupyingPiece().getColor() != this.getColor()) {
                 moves.add(rightDown);
             }
         }
@@ -158,7 +158,7 @@ public class Knight extends Piece {
             if (leftDown.isOccupied() == false) {
                 moves.add(leftDown);
             }
-            else if (leftDown.getOccupyingPiece() != null && leftDown.getOccupyingPiece().getColor() != getColor()) {
+            else if (leftDown.getOccupyingPiece() != null && leftDown.getOccupyingPiece().getColor() != this.getColor()) {
                 moves.add(leftDown);
             }
         }
