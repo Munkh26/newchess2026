@@ -1,7 +1,6 @@
-//Attila Juhasz
-
-//Rook
-//A rook can move vertically and horizontally. It can't jump over pieces. It is worth 5 points.
+//Name: Jian Acol
+//PD: 7
+//Description: This is a rook, which moves all the way up and down, and left and right.
 
 package com.example;
 import java.awt.Graphics;
@@ -16,61 +15,67 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 //you will need to implement two functions in this file.
-public class Rook extends Piece{
+public class Rook extends Piece {
     
-    public Rook(boolean isWhite, String img_file) {
+    public Rook(boolean isWhite, String img_file) {  
         super(isWhite, img_file);
     }
-
+    
+    public String toString() {
+        if (getColor())
+            return "I am the rook, and I am white";
+        else
+            return "I am the rook, and I am black";
+    }
 
     
+
     // TO BE IMPLEMENTED!
     //return a list of every square that is "controlled" by this piece. A square is controlled
     //if the piece capture into it legally.
 
-    //Precondition: the piece is currently on the "start" square, start is not null, and it is on the board.
-    //Postcondition: returns an arraylist of squares that this piece controlls on the board.
+    //precondition: the board already has to be initialized
+    //postcondition: returns the arraylist called "controlled" where it shows every legal capture
     public ArrayList<Square> getControlledSquares(Square[][] board, Square start) {
-        ArrayList<Square> moves = new ArrayList<Square>();
+        ArrayList<Square> controlled = new ArrayList<>();
 
-        for (int col = start.getCol()+1; col < 8; col++){
-            if (board[start.getRow()][col].getOccupyingPiece() == null || (board[start.getRow()][col].getOccupyingPiece().getColor() != this.getColor())){
-                moves.add(board[start.getRow()][col]);
-                if (board[start.getRow()][col].getOccupyingPiece() != null){
-                    col +=100;
-                }
-            }
-        }
-        for (int col = start.getCol()-1; col >= 0; col--){
-            if (board[start.getRow()][col].getOccupyingPiece() == null || (board[start.getRow()][col].getOccupyingPiece().getColor() != this.getColor())){
-                moves.add(board[start.getRow()][col]);
-                if (board[start.getRow()][col].getOccupyingPiece() != null){
-                    col = -1;
-                }
+        //right
+        for (int col = start.getCol() + 1; col <= 7; col++){
+            Square right = board[start.getRow()][col];
+            controlled.add(right);
+            if(right.isOccupied()){
+                break;
             }
         }
 
-        for (int row = start.getRow()+1; row < 8; row++){
-            if ((board[row][start.getCol()].getOccupyingPiece() == null) || (board[row][start.getCol()].getOccupyingPiece().getColor() != this.getColor())){
-                moves.add(board[row][start.getCol()]);
-                if (board[row][start.getCol()].getOccupyingPiece() != null){
-                    row = 100;
-                }
+        //left
+        for (int col = start.getCol() - 1; col >= 0; col--){
+            Square left = board[start.getRow()][col];
+            controlled.add(left);
+            if(left.isOccupied()){
+                break;
             }
         }
 
-        for (int row = start.getRow()-1; row >= 0; row--){
-            if ((board[row][start.getCol()].getOccupyingPiece() == null) || (board[row][start.getCol()].getOccupyingPiece().getColor() != this.getColor())){
-                moves.add(board[row][start.getCol()]);
-                if (board[row][start.getCol()].getOccupyingPiece() != null){
-                    row = -1;
-                }
+        //up
+        for (int row = start.getRow() + 1; row <= 7; row++){
+            Square up = board[row][start.getCol()];
+            controlled.add(up);
+            if(up.isOccupied()){
+                break;
             }
         }
 
-        
+        //down
+        for (int row = start.getRow() - 1; row >= 0; row--){
+            Square down = board[row][start.getCol()];
+            controlled.add(down);
+            if(down.isOccupied()){
+                break;
+            }
+        }
 
-        return moves;
+        return controlled;
     }
     
 
@@ -81,57 +86,71 @@ public class Rook extends Piece{
     //please note that your piece must have some sort of logic. Just being able to move to every square on the board is not
     //going to score any points.
 
-    //Precondition: the piece is currently on the "start" square, start is not null, and it is on the board.
-    //Postcondition: returns an arraylist of squares that this piece could move to legally.
+    //precondition: must have a board object and that board must be initialized
+    //postcondition: returns an arraylist called "moves" where it lists all the empty squares the rook can move into
     public ArrayList<Square> getLegalMoves(Board b, Square start){
-        //the board that I'm in
-        //b.getSquareArray();
+        // b.getSquareArray() //gives the 2d board we made earlier
+        // you are at coordinate start.getRow() start.getCol()
+        // so check to see if your square is on the board and is not occupied by another piece. 
+        ArrayList<Square> moves = new ArrayList<>();
 
-        //your location in this board is start.getRow() and start.getCol()
+        //loop for each direction we want to go in
+        //right
+        for(int col = start.getCol()+1; col<=7; col++){
+            Square right = b.getSquareArray()[start.getRow()][col];
+            if(!right.isOccupied() || right.getOccupyingPiece().getColor()!= getColor()){
+                
+                moves.add(right);
+                if(right.isOccupied()){
+                    break;
+                }
+            }
+            else{
+                break;
+            }
+        }
         
-
-        ArrayList<Square> moves = new ArrayList<Square>();
-
-        for (int col = start.getCol()+1; col < 8; col++){
-            moves.add(b.getSquareArray()[start.getRow()][col]);
-            if (b.getSquareArray()[start.getRow()][col].getOccupyingPiece() != null){
-                col +=100;
+        //left
+        for(int col = start.getCol()-1; col>=0; col--){
+            Square left = b.getSquareArray()[start.getRow()][col];
+            if(!left.isOccupied() || left.getOccupyingPiece().getColor()!= getColor()){
+                moves.add(left);
+                if(left.isOccupied()){
+                    break;
+                }
             }
-        }
-        for (int col = start.getCol()-1; col >= 0; col--){
-            moves.add(b.getSquareArray()[start.getRow()][col]);
-            if (b.getSquareArray()[start.getRow()][col].getOccupyingPiece() != null){
-                col = -1;
-            }
-        }
-
-        for (int row = start.getRow()+1; row < 8; row++){
-            moves.add(b.getSquareArray()[row][start.getCol()]);
-            if (b.getSquareArray()[row][start.getCol()].getOccupyingPiece() != null){
-                row = 100;
+            else{
+                break;
             }
         }
 
-        for (int row = start.getRow()-1; row >= 0; row--){
-            moves.add(b.getSquareArray()[row][start.getCol()]);
-            if (b.getSquareArray()[row][start.getCol()].getOccupyingPiece() != null){
-                row = -1;
+        //top
+        for(int row = start.getRow()+1; row<=7; row++){
+            Square up = b.getSquareArray()[row][start.getCol()];
+            if(!up.isOccupied() || up.getOccupyingPiece().getColor()!= getColor()){
+                moves.add(up);
+                if(up.isOccupied()){
+                    break;
+                }
+            }
+            else{
+                break;
             }
         }
 
-       
+        for(int row = start.getRow()-1; row>=0; row--){
+            Square down = b.getSquareArray()[row][start.getCol()];
+            if(!down.isOccupied() || down.getOccupyingPiece().getColor()!= getColor()){
+                moves.add(down);
+                if(down.isOccupied()){
+                    break;
+                }
+            }
+            else{
+                break;
+            }
+        }
 
-        
-
-        return moves;
-    }
-    
-    //Pre-condition: Rook is created and color is not null
-    //Post-condition: Returns what the piece is along with its color
-    public String toString() {
-        if (color)
-            return "white rook";
-        else
-            return "black rook";
+    	return moves;
     }
 }
