@@ -190,7 +190,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                     //k = board[row][col];
                   //  System.out.println(k.getRow() + k.getCol());
                 //}
-                //if (board[row][col].getColor() != currPiece.getColor()) {
+                //if (board[row][col].getColor() != kingColor) {
                 //    opposite.add(board[row][col].getOccupyingPiece());
                 //}
             //}
