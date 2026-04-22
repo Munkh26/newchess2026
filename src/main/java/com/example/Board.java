@@ -181,16 +181,20 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         repaint();
     }
 
-    private boolean isInCheck(Boolean color) {
+    private boolean isInCheck(Boolean kingColor) {
         ArrayList<Piece> opposite = new ArrayList<Piece>();
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                if (board[row][col].getColor() != currPiece.getColor()) {
-                    opposite.add(board[row][col].getOccupyingPiece());
-                }
-            }
-        }
-
+        Square k;
+        //for (int row = 0; row < 8; row++) {
+            //for (int col = 0; col < 8; col++) {
+                //if (board[row][col].getOccupyingPiece().toString().contains("king")) {
+                    //k = board[row][col];
+                  //  System.out.println(k.getRow() + k.getCol());
+                //}
+                //if (board[row][col].getColor() != currPiece.getColor()) {
+                //    opposite.add(board[row][col].getOccupyingPiece());
+                //}
+            //}
+        //}
 
 
         return false;
