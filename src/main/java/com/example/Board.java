@@ -181,28 +181,44 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         repaint();
     }
 
+    // Pre-condition: The board is initialized and contains a king of either color.
+    // Post-condition: Returns true of the king is in check and false otherwise
+
     private boolean isInCheck(Boolean kingColor) {
-        ArrayList<Square> opposite = new ArrayList<Square>();
-        int kingRow = 0;
-        int kingCol = 0;
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                if (board[row][col].isOccupied() && board[row][col].getOccupyingPiece().getColor() != kingColor) {
-                    opposite.addAll(board[row][col].getOccupyingPiece().getControlledSquares(board, board[row][col]));
-                }
-                if (board[row][col].getColor() != kingColor && board[row][col].getOccupyingPiece() instanceof King) {
-                    kingRow = row;
-                    kingCol = col;
+        int currKingRow = -1;
+        int currKingCol = -1;
+        for (int r = 0; r < board.length; r++) {
+            for (int c = 0; c < board[0].length; c++) {
+                if (board[r][c].isOccupied()) {
+                    Piece p = board[r][c].getOccupyingPiece();
+                    if (p.getColor() == kingColor && p instanceof King) {
+                        currKingRow = r;
+                        currKingCol = c;
+                    }
                 }
             }
         }
 
-        Square king = board[kingRow][kingCol];
+        if (currKingRow == -1) {
+            return false;
+        }
 
-        for (Square s : opposite) {
-            if (s.equals(king)) {
-                System.out.println(s);
-                return true;
+        for (int r = 0; r < board.length; r++) {
+            for (int c = 0; c < board[0].length; c++) {
+                if (board[r][c].isOccupied() && board[r][c].getOccupyingPiece().getColor() != kingColor) {
+                    Piece oppPiece = board[r][c].getOccupyingPiece();
+                    if (oppPiece.getColor() != kingColor) {
+                        ArrayList<Square> controlledSquares = oppPiece.getControlledSquares(board, board[r][c]);
+                        if (controlledSquares != null) {
+                            for (int i = 0; i < controlledSquares.size(); i++) {
+                                if (controlledSquares.get(i).equals(board[currKingRow][currKingCol])) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+
+                }
             }
         }
 
